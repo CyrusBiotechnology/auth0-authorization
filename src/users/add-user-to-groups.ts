@@ -5,9 +5,11 @@ export interface Input {
   groupIds: string[];
 }
 
+type IRequestBody = string[];
+
 export function addUserToGroups(authorizationExtensionUrl: string, accessToken: string) {
-  return (input: Input): Promise<void> => {
-    return patch({
+  return (input: Input) => {
+    return patch<IRequestBody, void>({
       accessToken,
       body: input.groupIds,
       url: `${authorizationExtensionUrl}/users/${input.userId}/groups`,

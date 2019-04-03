@@ -5,9 +5,11 @@ export interface Input {
   roleIds: string[];
 }
 
+type IRequestBody = string[];
+
 export function addUserToRoles(authorizationExtensionUrl: string, accessToken: string) {
-  return (input: Input): Promise<void> => {
-    return patch({
+  return (input: Input) => {
+    return patch<IRequestBody, void>({
       accessToken,
       body: input.roleIds,
       url: `${authorizationExtensionUrl}/users/${input.userId}/roles`,

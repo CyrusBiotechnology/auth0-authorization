@@ -50,8 +50,8 @@ export async function get<ResponseBody>(request: IGetOptions): Promise<IResponse
   });
 }
 
-export async function create<RequestBody, ResponseBody>(request: ICreateOptions<RequestBody>): Promise<ResponseBody> {
-  const response = await fetch(request.url, {
+export async function create<RequestBody, ResponseBody>(request: ICreateOptions<RequestBody>): Promise<IResponse<ResponseBody>> {
+  return fetch(request.url, {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${request.accessToken}`,
@@ -60,13 +60,6 @@ export async function create<RequestBody, ResponseBody>(request: ICreateOptions<
     },
     body: JSON.stringify(request.body),
   });
-  if (!response.ok) {
-    throw new HttpError(response.status, await response.json());
-  }
-  const contentType = response.headers.get('Content-Type');
-  if (contentType && contentType.includes('application/json')) {
-    return response.json();
-  }
 }
 
 export async function patch<RequestBody, ResponseBody>(request: IPatchOptions<RequestBody>): Promise<ResponseBody> {

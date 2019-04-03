@@ -5,8 +5,8 @@ import { IAuth0AuthorizationApiGroup } from '../interfaces';
 export type Input = Pick<IAuth0AuthorizationApiGroup, Exclude<keyof IAuth0AuthorizationApiGroup, '_id'>>;
 
 export function createGroup(extensionUrl: string, accessToken: string) {
-  return (input: Input): Promise<IAuth0AuthorizationApiGroup> => {
-    return create({
+  return (input: Input) => {
+    return create<Input, IAuth0AuthorizationApiGroup>({
       accessToken,
       body: {
         name: input.name,

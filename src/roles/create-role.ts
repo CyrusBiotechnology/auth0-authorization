@@ -7,8 +7,8 @@ export interface Input extends Pick<IAuth0AuthorizationApiRole, Exclude<keyof IA
 }
 
 export function createRole(authorizationExtensionUrl: string, accessToken: string) {
-  return (input: Input): Promise<IAuth0AuthorizationApiRole> => {
-    return create({
+  return (input: Input) => {
+    return create<Input, IAuth0AuthorizationApiRole>({
       accessToken,
       body: {
         name: input.name,

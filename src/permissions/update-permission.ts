@@ -4,7 +4,7 @@ import { IAuth0AuthorizationApiPermission } from '../interfaces';
 // Make permissions optional
 export type Input = IAuth0AuthorizationApiPermission;
 
-// Everything in permission object except _id
+// Keep everything in permission object except _id
 export type IRequestBody = Pick<IAuth0AuthorizationApiPermission, Exclude<keyof IAuth0AuthorizationApiPermission, '_id'>>;
 
 export function updatePermission(authorizationExtensionUrl: string, accessToken: string) {

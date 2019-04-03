@@ -6,9 +6,11 @@ export interface Input extends Pick<IAuth0AuthorizationApiRole, Exclude<keyof IA
   permissions?: string[];
 }
 
+type IRequestBody = Pick<Input, Exclude<keyof Input, '_id'>>;
+
 export function updateRole(authorizationExtensionUrl: string, accessToken: string) {
-  return (input: Input): Promise<IAuth0AuthorizationApiRole> => {
-    return put({
+  return (input: Input) => {
+    return put<IRequestBody, IAuth0AuthorizationApiRole>({
       accessToken,
       body: {
         name: input.name,

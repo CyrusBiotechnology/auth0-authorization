@@ -74,8 +74,8 @@ export async function patch<RequestBody, ResponseBody>(request: IPatchOptions<Re
   });
 }
 
-export async function put<RequestBody, ResponseBody>(request: IPutOptions<RequestBody>): Promise<ResponseBody> {
-  const response = await fetch(request.url, {
+export async function put<RequestBody, ResponseBody>(request: IPutOptions<RequestBody>): Promise<IResponse<ResponseBody>> {
+  return fetch(request.url, {
     method: 'PUT',
     headers: {
       'Authorization': `Bearer ${request.accessToken}`,
@@ -84,13 +84,6 @@ export async function put<RequestBody, ResponseBody>(request: IPutOptions<Reques
     },
     body: JSON.stringify(request.body),
   });
-  if (!response.ok) {
-    throw new HttpError(response.status, await response.json());
-  }
-  const contentType = response.headers.get('Content-Type');
-  if (contentType && contentType.includes('application/json')) {
-    return response.json();
-  }
 }
 
 export async function del<RequestBody, ResponseBody>(request: IDeleteOptions<RequestBody>): Promise<ResponseBody> {

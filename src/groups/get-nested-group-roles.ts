@@ -11,8 +11,8 @@ type Response = {
 }[];
 
 export function getNestedGroupRoles(extensionUrl: string, accessToken: string) {
-  return (input: Input): Promise<Response> => {
-    return get({
+  return (input: Input) => {
+    return get<Response>({
       accessToken,
       url: `${extensionUrl}/groups/${input.groupId}/roles/nested`,
     });

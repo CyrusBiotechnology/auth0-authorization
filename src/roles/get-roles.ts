@@ -7,8 +7,8 @@ export interface Response {
 }
 
 export function getRoles(authorizationExtensionUrl: string, accessToken: string) {
-  return (): Promise<Response> => {
-    return get({
+  return () => {
+    return get<Response>({
       accessToken,
       url: `${authorizationExtensionUrl}/roles`,
     });

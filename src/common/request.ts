@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+import fetch, { Response } from 'node-fetch';
 import * as url from 'url';
 import { HttpError } from './http-error';
 
@@ -34,20 +34,20 @@ export interface IDeleteOptions<T> {
   url: string;
 }
 
-export async function get<ResponseBody>(request: IGetOptions): Promise<ResponseBody> {
+export interface IResponse<T> extends Response {
+  json(): Promise<T>;
+}
+
+export async function get<ResponseBody>(request: IGetOptions): Promise<IResponse<ResponseBody>> {
   const urlObject = new url.URL(request.url);
   urlObject.search = new url.URLSearchParams(request.queryParams).toString();
   const urlString = urlObject.toString();
-  const response = await fetch(urlString, {
+  return fetch(urlString, {
     method: 'GET',
     headers: {
       'Authorization': `Bearer ${request.accessToken}`
     }
   });
-  if (!response.ok) {
-    throw new HttpError(response.status, await response.json());
-  }
-  return await response.json();
 }
 
 export async function create<RequestBody, ResponseBody>(request: ICreateOptions<RequestBody>): Promise<ResponseBody> {

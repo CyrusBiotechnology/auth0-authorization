@@ -6,8 +6,8 @@ export interface Input {
 }
 
 export function getGroup(extensionUrl: string, accessToken: string) {
-  return (input: Input): Promise<IAuth0AuthorizationApiGroup> => {
-    return get({
+  return (input: Input) => {
+    return get<IAuth0AuthorizationApiGroup>({
       accessToken,
       url: `${extensionUrl}/groups/${input.groupId}`,
     });

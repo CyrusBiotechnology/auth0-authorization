@@ -21,12 +21,12 @@ const defaultOptions: Options = {
 };
 
 export function getGroupMembers(extensionUrl: string, accessToken: string) {
-  return (input: Input, options?: Options): Promise<Response> => {
+  return (input: Input, options?: Options) => {
     options = {
       ...defaultOptions,
       ...options
     };
-    return get({
+    return get<Response>({
       accessToken,
       url: `${extensionUrl}/groups/${input.groupId}/members`,
       queryParams: {

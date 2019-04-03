@@ -8,8 +8,8 @@ export interface Input {
 type Response = IAuth0AuthorizationApiRole[];
 
 export function getGroupRoles(extensionUrl: string, accessToken: string) {
-  return (input: Input): Promise<Response> => {
-    return get({
+  return (input: Input) => {
+    return get<Response>({
       accessToken,
       url: `${extensionUrl}/groups/${input.groupId}/roles`,
     });

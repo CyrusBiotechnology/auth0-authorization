@@ -6,8 +6,8 @@ export interface Input {
 }
 
 export function getPermission(authorizationExtensionUrl: string, accessToken: string) {
-  return (input: Input): Promise<IAuth0AuthorizationApiPermission> => {
-    return get({
+  return (input: Input) => {
+    return get<IAuth0AuthorizationApiPermission>({
       accessToken,
       url: `${authorizationExtensionUrl}/permissions/${input.permissionId}`,
     });

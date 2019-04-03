@@ -6,8 +6,8 @@ export interface Input {
 }
 
 export function getRole(authorizationExtensionUrl: string, accessToken: string) {
-  return (input: Input): Promise<IAuth0AuthorizationApiRole> => {
-    return get({
+  return (input: Input) => {
+    return get<IAuth0AuthorizationApiRole>({
       accessToken,
       url: `${authorizationExtensionUrl}/roles/${input.roleId}`,
     });

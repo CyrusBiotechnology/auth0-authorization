@@ -24,12 +24,12 @@ const defaultOptions: Options = {
 };
 
 export function getNestedGroupMembers(extensionUrl: string, accessToken: string) {
-  return (input: Input, options?: Options): Promise<Response> => {
+  return (input: Input, options?: Options) => {
     options = {
       ...defaultOptions,
       ...options
     };
-    return get({
+    return get<Response>({
       accessToken,
       url: `${extensionUrl}/groups/${input.groupId}/members/nested`,
       queryParams: {

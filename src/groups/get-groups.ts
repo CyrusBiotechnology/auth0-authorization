@@ -7,8 +7,8 @@ export interface Response {
 }
 
 export function getGroups(extensionUrl: string, accessToken: string) {
-  return (): Promise<Response> => {
-    return get({
+  return () => {
+    return get<Response>({
       accessToken,
       url: `${extensionUrl}/groups`,
     });

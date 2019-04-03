@@ -14,12 +14,12 @@ const defaultOptions: Options = {
 };
 
 export function getUserGroups(authorizationExtensionUrl: string, accessToken: string) {
-  return (input: Input, options?: Options): Promise<IAuth0AuthorizationApiGroup[]> => {
+  return (input: Input, options?: Options) => {
     options = {
       ...defaultOptions,
       ...options
     };
-    return get({
+    return get<IAuth0AuthorizationApiGroup[]>({
       accessToken,
       url: `${authorizationExtensionUrl}/users/${input.userId}/groups${options.includeNestedGroups ? '/calculate' : ''}`,
     });

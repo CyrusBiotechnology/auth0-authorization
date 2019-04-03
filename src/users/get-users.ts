@@ -20,12 +20,12 @@ const getUsersDefaultOptions: Options = {
 };
 
 export function getUsers(authorizationExtensionUrl: string, accessToken: string) {
-  return (options?: Options): Promise<Response> => {
+  return (options?: Options) => {
     options = {
       ...getUsersDefaultOptions,
       ...options
     };
-    return get({
+    return get<Response>({
       accessToken,
       url: `${authorizationExtensionUrl}/users`,
       queryParams: {

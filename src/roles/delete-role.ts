@@ -5,8 +5,8 @@ export interface Input {
 }
 
 export function deleteRole(authorizationExtensionUrl: string, accessToken: string) {
-  return (input: Input): Promise<void> => {
-    return del({
+  return (input: Input) => {
+    return del<void, void>({
       accessToken,
       url: `${authorizationExtensionUrl}/roles/${input.roleId}`,
     });

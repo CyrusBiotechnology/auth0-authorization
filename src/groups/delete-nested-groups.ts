@@ -6,11 +6,13 @@ export interface Input {
   nestedGroupIds: string[];
 }
 
+type IRequestBody = string[];
+
 type Response = IAuth0AuthorizationApiGroup[];
 
 export function deleteNestedGroups(extensionUrl: string, accessToken: string) {
-  return (input: Input): Promise<Response> => {
-    return del({
+  return (input: Input) => {
+    return del<IRequestBody, Response>({
       accessToken,
       body: input.nestedGroupIds,
       url: `${extensionUrl}/groups/${input.groupId}/nested`,

@@ -5,9 +5,11 @@ export interface Input {
   roleIds: string[];
 }
 
+type IRequestBody = string[];
+
 export function removeUserFromRoles(authorizationExtensionUrl: string, accessToken: string) {
-  return (input: Input): Promise<void> => {
-    return del({
+  return (input: Input) => {
+    return del<IRequestBody, void>({
       accessToken,
       body: input.roleIds,
       url: `${authorizationExtensionUrl}/users/${input.userId}/roles`,

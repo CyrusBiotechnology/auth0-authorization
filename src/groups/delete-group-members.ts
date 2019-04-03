@@ -5,9 +5,11 @@ export interface Input {
   userIds: string[];
 }
 
+type IRequestBody = string[];
+
 export function deleteGroupMembers(extensionUrl: string, accessToken: string) {
-  return (input: Input): Promise<void> => {
-    return del({
+  return (input: Input) => {
+    return del<IRequestBody, void>({
       accessToken,
       body: input.userIds,
       url: `${extensionUrl}/groups/${input.groupId}/members`,

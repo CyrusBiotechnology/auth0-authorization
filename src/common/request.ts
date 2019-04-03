@@ -86,8 +86,8 @@ export async function put<RequestBody, ResponseBody>(request: IPutOptions<Reques
   });
 }
 
-export async function del<RequestBody, ResponseBody>(request: IDeleteOptions<RequestBody>): Promise<ResponseBody> {
-  const response = await fetch(request.url, {
+export async function del<RequestBody, ResponseBody>(request: IDeleteOptions<RequestBody>): Promise<IResponse<ResponseBody>> {
+  return fetch(request.url, {
     method: 'DELETE',
     headers: {
       'Authorization': `Bearer ${request.accessToken}`,
@@ -96,11 +96,4 @@ export async function del<RequestBody, ResponseBody>(request: IDeleteOptions<Req
     },
     body: JSON.stringify(request.body),
   });
-  if (!response.ok) {
-    throw new HttpError(response.status, await response.json());
-  }
-  const contentType = response.headers.get('Content-Type');
-  if (contentType && contentType.includes('application/json')) {
-    return response.json();
-  }
 }
